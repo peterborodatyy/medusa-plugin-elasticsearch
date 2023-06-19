@@ -1,25 +1,33 @@
 {
   "compilerOptions": {
-    "lib": ["es5", "es6"],
-    "target": "esnext",
-    "allowJs": true,
+    "lib": [
+      "es2020"
+    ],
+    "target": "es2020",
+    "outDir": "./dist",
     "esModuleInterop": true,
+    "declaration": true,
     "module": "commonjs",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "sourceMap": true,
+    "noImplicitReturns": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noImplicitThis": true,
+    "allowJs": true,
     "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
-    "declaration": false,
-    "sourceMap": false,
-    "outDir": "./dist",
-    "rootDir": "src",
-    "baseUrl": "src"
+    "downlevelIteration": true // to use ES5 specific tooling
   },
-  "include": ["src"],
+  "include": [
+    "src"
+  ],
   "exclude": [
-    "**/__tests__",
-    "**/__fixtures__",
+    "dist",
+    "src/**/__tests__",
+    "src/**/__mocks__",
+    "src/**/__fixtures__",
     "node_modules"
   ]
 }

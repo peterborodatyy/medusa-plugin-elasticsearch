@@ -1,70 +1,179 @@
-<p align="center">
-  <a href="https://www.medusajs.com">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/59018053/229103275-b5e482bb-4601-46e6-8142-244f531cebdb.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://user-images.githubusercontent.com/59018053/229103726-e5b529a3-9b3f-4970-8a1f-c6af37f087bf.svg">
-    <img alt="Medusa logo" src="https://user-images.githubusercontent.com/59018053/229103726-e5b529a3-9b3f-4970-8a1f-c6af37f087bf.svg">
-    </picture>
-  </a>
-</p>
-<h1 align="center">
-  Medusa
-</h1>
+# Elasticsearch
 
-<h4 align="center">
-  <a href="https://docs.medusajs.com">Documentation</a> |
-  <a href="https://www.medusajs.com">Website</a>
-</h4>
+Provide powerful indexing and searching features in your commerce application with Elasticsearch.
 
-<p align="center">
-  Building blocks for digital commerce
-</p>
-<p align="center">
-  <a href="https://github.com/medusajs/medusa/blob/master/CONTRIBUTING.md">
-    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat" alt="PRs welcome!" />
-  </a>
-    <a href="https://www.producthunt.com/posts/medusa"><img src="https://img.shields.io/badge/Product%20Hunt-%231%20Product%20of%20the%20Day-%23DA552E" alt="Product Hunt"></a>
-  <a href="https://discord.gg/xpCwq3Kfn8">
-    <img src="https://img.shields.io/badge/chat-on%20discord-7289DA.svg" alt="Discord Chat" />
-  </a>
-  <a href="https://twitter.com/intent/follow?screen_name=medusajs">
-    <img src="https://img.shields.io/twitter/follow/medusajs.svg?label=Follow%20@medusajs" alt="Follow @medusajs" />
-  </a>
-</p>
+## Features
 
-## Compatibility
+- Flexible configurations for specifying searchable and retrievable attributes.
+- Utilize Elasticsearch's powerful search functionalities including possibility to configure custom mappings, indexes, tokenizers and more.
 
-This starter is compatible with versions >= 1.8.0 of `@medusajs/medusa`. 
+---
 
-## Getting Started
+## Prerequisites
 
-Visit the [Quickstart Guide](https://docs.medusajs.com/create-medusa-app) to set up a server.
+- [Medusa backend](https://docs.medusajs.com/development/backend/install)
+- Elasticsearch instance or cloud
 
-Visit the [Docs](https://docs.medusajs.com/development/backend/prepare-environment) to learn more about our system requirements.
+---
 
-## What is Medusa
+## How to Install
 
-Medusa is a set of commerce modules and tools that allow you to build rich, reliable, and performant commerce applications without reinventing core commerce logic. The modules can be customized and used to build advanced ecommerce stores, marketplaces, or any product that needs foundational commerce primitives. All modules are open-source and freely available on npm.
+1\. Run the following command in the directory of the Medusa backend:
 
-Learn more about [Medusa’s architecture](https://docs.medusajs.com/development/fundamentals/architecture-overview) and [commerce modules](https://docs.medusajs.com/modules/overview) in the Docs.
+```bash
+npm install medusa-plugin-elasticsearch
+```
 
-## Roadmap, Upgrades & Plugins
+2\. Set the environment variables in `.env`, based on your configuration.
 
-You can view the planned, started and completed features in the [Roadmap discussion](https://github.com/medusajs/medusa/discussions/categories/roadmap).
+3\. In `medusa-config.js` add the following at the end of the `plugins` array:
 
-Follow the [Upgrade Guides](https://docs.medusajs.com/upgrade-guides/) to keep your Medusa project up-to-date.
+```js
+const plugins = [
+// ...
+{
+  resolve: `medusa-plugin-elasticsearch`,
+  options: {
+    config: {
+      cloud: {
+        id: process.env.ELASTIC_CLOUD_ID
+      },
+      auth: {
+        username: process.env.ELASTIC_USER_NAME,
+        password: process.env.ELASTIC_PASSWORD,
+      },
+    },
+    settings: {
+      products: {
+        indexSettings: {
+          searchableAttributes: ["title", "description"],
+          attributesToRetrieve: [
+            "id",
+            "title",
+            "description",
+            "handle",
+            "thumbnail",
+            "variants",
+            "variant_sku",
+            "options",
+            "collection_title",
+            "collection_handle",
+            "images",
+          ],
+        },
+        transformer: (product) => ({
+          id: product.id,
+          name: product.name,
+          description: product.description,
+          // other attributes...
+        }),
+        mappings: { // Not required, used in case if custom mapping configuration is needed
+          properties: {
+            id: {
+              type: 'keyword',
+            },
+            name: {
+              type: 'keyword',
+            },
+            description: {
+              type: 'text',
+            },
+          },
+        }
+        settings: { // Not required, used in case if custom index settings are needed
+          analysis: {
+            normalizer: {
+              sortable: {
+                type: 'lowercase',
+              },
+            },
+            tokenizer: {
+              autocomplete: {
+                type: 'edge_ngram',
+                min_gram: 2,
+                max_gram: 10,
+                token_chars: ['letter', 'digit'],
+              },
+            },
+            analyzer: {
+              autocomplete_index: {
+                type: 'custom',
+                tokenizer: 'autocomplete',
+                filter: ['lowercase'],
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+},
+]
+```
 
-Check out all [available Medusa plugins](https://medusajs.com/plugins/).
+## Options
 
-## Community & Contributions
+#### 1. Global options
 
-The community and core team are available in [GitHub Discussions](https://github.com/medusajs/medusa/discussions), where you can ask for support, discuss roadmap, and share ideas.
+| Name | Description | Required |
+-------|-------------|----------|
+| `config` | The Elasticsearch [client configuration](https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/client-configuration.html). | true |
+| `settings` | The indexes list and configurations. | true |
 
-Join our [Discord server](https://discord.com/invite/medusajs) to meet other community members.
+#### 2. Index Options
 
-## Other channels
+| Name | Description | Required |
+-------|-------------|----------|
+| `indexSettings` |  Standard Medusa [index settings](https://docs.medusajs.com/plugins/search/algolia#index-settings).  | true |
+| `transformer` | Custom object transformer function. | false |
+| `mappings` | Custom Elasticsearch mapping configuration. | false |
+| `settings` | Custom Elasticsearch index configuration. | false |
 
-- [GitHub Issues](https://github.com/medusajs/medusa/issues)
-- [Twitter](https://twitter.com/medusajs)
-- [LinkedIn](https://www.linkedin.com/company/medusajs)
-- [Medusa Blog](https://medusajs.com/blog/)
+## Test the Plugin
+
+1\. Run the following command in the directory of the Medusa backend to run the backend:
+
+```bash
+npm run start
+```
+
+2\. Try searching products either using your storefront or using the [Store APIs](https://docs.medusajs.com/api/store#tag/Product/operation/PostProductsSearch).
+
+3\. Example search response:
+```json
+{
+    "took": 1,
+    "timed_out": false,
+    "_shards": {
+        "total": 1,
+        "successful": 1,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": {
+            "value": 1,
+            "relation": "eq"
+        },
+        "max_score": 0.06801665,
+        "hits": [
+            {
+                "_index": "products",
+                "_id": "prod_01H2P51GTXD6Y4BB4C950VBQYN",
+                "_score": 0.06801665,
+                "_source": {
+                    "id": "prod_01H2P51GTXD6Y4BB4C950VBQYN",
+                    "title": "Medusa Sweatshirt",
+                    "description": "Reimagine the feeling of a classic sweatshirt. With our cotton sweatshirt, everyday essentials no longer have to be ordinary."
+                }
+            }
+        ]
+    }
+}
+```
+
+---
+
+## Additional Resources
+
+- [Elasticsearch Node.js client](https://github.com/elastic/elasticsearch-js)
