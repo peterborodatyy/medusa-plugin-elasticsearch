@@ -1,4 +1,16 @@
-# Elasticsearch
+<p align="center">
+  <img src="https://images.contentstack.io/v3/assets/bltefdd0b53724fa2ce/blt280217a63b82a734/6202d3378b1f312528798412/elastic-logo.svg" width="200" height="auto" />
+</p>
+
+# Medusa Elasticsearch Search Plugin
+
+<p>
+	<a href="https://www.npmjs.com/package/medusa-plugin-elasticsearch"><img alt="NPM Version" src="https://img.shields.io/npm/v/medusa-plugin-elasticsearch.svg" height="20"/></a>
+	<a href="https://github.com/peterborodatyy/medusa-plugin-elasticsearch/graphs/contributors"><img alt="Contributors" src="https://img.shields.io/github/contributors/peterborodatyy/medusa-plugin-elasticsearch.svg" height="20"/></a>
+	<a href="https://twitter.com/intent/tweet?text=Checkout%20the%20new%20Medusa.js%20Elasticsearch%20plugin&url=https://github.com/peterborodatyy/medusa-plugin-elasticsearch&hashtags=medusa,elastic,elasticsearch"><img alt="Twitter" src="https://badgen.net/badge/icon/twitter?icon=twitter&label=Share%20it%20on" height="20"/></a>
+	<a href="https://github.com/peterborodatyy/medusa-plugin-elasticsearch/commits/main"><img alt="Activity" src="https://img.shields.io/github/commit-activity/m/peterborodatyy/medusa-plugin-elasticsearch?style=flat" height="20"/></a>
+	<a href="https://github.com/peterborodatyy/medusa-plugin-elasticsearch/issues"><img alt="Issues" src="https://img.shields.io/github/issues/peterborodatyy/medusa-plugin-elasticsearch?style=flat" height="20"/></a>
+</p>
 
 Provide powerful indexing and searching features in your commerce application with Elasticsearch.
 
@@ -142,33 +154,33 @@ npm run start
 3\. Example search response:
 ```json
 {
-    "took": 1,
-    "timed_out": false,
-    "_shards": {
-        "total": 1,
-        "successful": 1,
-        "skipped": 0,
-        "failed": 0
+  "took": 1,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
     },
-    "hits": {
-        "total": {
-            "value": 1,
-            "relation": "eq"
-        },
-        "max_score": 0.06801665,
-        "hits": [
-            {
-                "_index": "products",
-                "_id": "prod_01H2P51GTXD6Y4BB4C950VBQYN",
-                "_score": 0.06801665,
-                "_source": {
-                    "id": "prod_01H2P51GTXD6Y4BB4C950VBQYN",
-                    "title": "Medusa Sweatshirt",
-                    "description": "Reimagine the feeling of a classic sweatshirt. With our cotton sweatshirt, everyday essentials no longer have to be ordinary."
-                }
-            }
-        ]
-    }
+    "max_score": 0.06801665,
+    "hits": [
+      {
+        "_index": "products",
+        "_id": "prod_01H2P51GTXD6Y4BB4C950VBQYN",
+        "_score": 0.06801665,
+        "_source": {
+          "id": "prod_01H2P51GTXD6Y4BB4C950VBQYN",
+          "title": "Medusa Sweatshirt",
+          "description": "Reimagine the feeling of a classic sweatshirt. With our cotton sweatshirt, everyday essentials no longer have to be ordinary."
+        }
+      }
+    ]
+  }
 }
 ```
 
@@ -177,3 +189,8 @@ npm run start
 ## Additional Resources
 
 - [Elasticsearch Node.js client](https://github.com/elastic/elasticsearch-js)
+
+
+## Contributing
+
+If you want to contribute to this project, please feel free to open a pull request or an issue. I will try to respond as soon as possible.
