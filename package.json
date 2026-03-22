@@ -1,7 +1,7 @@
 {
   "name": "medusa-plugin-elasticsearch",
   "packageManager": "yarn@3.2.4",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Elasticsearch search plugin for Medusa v2",
   "author": "Peter Borodatyy <peterborodatyy@gmail.com>",
   "repository": {
@@ -41,6 +41,10 @@
     "format:check": "prettier --check \"src/**/*.ts\" \"*.{json,mjs}\"",
     "test": "jest",
     "test:integration": "jest --testPathPattern=__tests__ --forceExit"
+  },
+  "resolutions": {
+    "@babel/traverse": "^7.23.2",
+    "braces": "^3.0.3"
   },
   "dependencies": {
     "@elastic/elasticsearch": "^9.3.4"
