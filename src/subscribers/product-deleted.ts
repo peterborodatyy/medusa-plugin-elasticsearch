@@ -1,5 +1,5 @@
-import type { SubscriberArgs, SubscriberConfig } from "@medusajs/framework"
-import { deleteProductsFromElasticsearchWorkflow } from "../workflows"
+import type { SubscriberArgs, SubscriberConfig } from '@medusajs/framework'
+import { deleteProductsFromElasticsearchWorkflow } from '../workflows'
 
 export default async function handleProductDeleted({
   event: { data },
@@ -11,5 +11,5 @@ export default async function handleProductDeleted({
 }
 
 export const config: SubscriberConfig = {
-  event: "product.deleted",
+  event: 'product.deleted',
 }

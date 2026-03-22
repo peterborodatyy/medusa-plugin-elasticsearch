@@ -2,24 +2,24 @@ export const transformProduct = (product: Record<string, any>) => {
   const transformedProduct: Record<string, unknown> = { ...product }
 
   const variantKeys = [
-    "sku",
-    "barcode",
-    "ean",
-    "upc",
-    "title",
-    "inventory_quantity",
-    "allow_backorder",
-    "manage_inventory",
-    "hs_code",
-    "origin_country",
-    "mid_code",
-    "material",
-    "weight",
-    "length",
-    "height",
-    "width",
+    'sku',
+    'barcode',
+    'ean',
+    'upc',
+    'title',
+    'inventory_quantity',
+    'allow_backorder',
+    'manage_inventory',
+    'hs_code',
+    'origin_country',
+    'mid_code',
+    'material',
+    'weight',
+    'length',
+    'height',
+    'width',
   ]
-  const prefix = "variant"
+  const prefix = 'variant'
 
   const initialObj: Record<string, unknown[]> = variantKeys.reduce(
     (obj, key) => {

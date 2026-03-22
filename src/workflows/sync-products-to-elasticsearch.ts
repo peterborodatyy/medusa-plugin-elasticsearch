@@ -3,44 +3,44 @@ import {
   createWorkflow,
   StepResponse,
   WorkflowResponse,
-} from "@medusajs/framework/workflows-sdk"
-import { ELASTICSEARCH_MODULE } from "../modules/elasticsearch"
+} from '@medusajs/framework/workflows-sdk'
+import { ELASTICSEARCH_MODULE } from '../modules/elasticsearch'
 
 type SyncProductsInput = {
   ids: string[]
 }
 
 const fetchProductsStep = createStep(
-  "fetch-products-for-es",
+  'fetch-products-for-es',
   async ({ ids }: SyncProductsInput, { container }) => {
-    const query = container.resolve("query")
+    const query = container.resolve('query')
 
     const { data: products } = await query.graph({
-      entity: "product",
+      entity: 'product',
       fields: [
-        "id",
-        "title",
-        "subtitle",
-        "description",
-        "handle",
-        "status",
-        "thumbnail",
-        "weight",
-        "length",
-        "height",
-        "width",
-        "hs_code",
-        "origin_country",
-        "mid_code",
-        "material",
-        "metadata",
-        "tags.*",
-        "type.*",
-        "collection.*",
-        "categories.*",
-        "images.*",
-        "variants.*",
-        "variants.options.*",
+        'id',
+        'title',
+        'subtitle',
+        'description',
+        'handle',
+        'status',
+        'thumbnail',
+        'weight',
+        'length',
+        'height',
+        'width',
+        'hs_code',
+        'origin_country',
+        'mid_code',
+        'material',
+        'metadata',
+        'tags.*',
+        'type.*',
+        'collection.*',
+        'categories.*',
+        'images.*',
+        'variants.*',
+        'variants.options.*',
       ],
       filters: {
         id: ids,
@@ -52,23 +52,21 @@ const fetchProductsStep = createStep(
 )
 
 const indexProductsStep = createStep(
-  "index-products-in-es",
+  'index-products-in-es',
   async (products: Record<string, unknown>[], { container }) => {
     const elasticsearchService = container.resolve(ELASTICSEARCH_MODULE)
 
-    const publishedProducts = products.filter(
-      (p) => p.status === "published"
-    )
+    const publishedProducts = products.filter((p) => p.status === 'published')
     const unpublishedIds = products
-      .filter((p) => p.status !== "published")
+      .filter((p) => p.status !== 'published')
       .map((p) => p.id as string)
 
     if (publishedProducts.length) {
-      await elasticsearchService.indexData(publishedProducts, "products")
+      await elasticsearchService.indexData(publishedProducts, 'products')
     }
 
     if (unpublishedIds.length) {
-      await elasticsearchService.deleteFromIndex(unpublishedIds, "products")
+      await elasticsearchService.deleteFromIndex(unpublishedIds, 'products')
     }
 
     return new StepResponse({
@@ -85,16 +83,13 @@ const indexProductsStep = createStep(
     const elasticsearchService = container.resolve(ELASTICSEARCH_MODULE)
 
     if (result.indexedIds?.length) {
-      await elasticsearchService.deleteFromIndex(
-        result.indexedIds,
-        "products"
-      )
+      await elasticsearchService.deleteFromIndex(result.indexedIds, 'products')
     }
   }
 )
 
 export const syncProductsToElasticsearchWorkflow = createWorkflow(
-  "sync-products-to-elasticsearch",
+  'sync-products-to-elasticsearch',
   (input: SyncProductsInput) => {
     const products = fetchProductsStep(input)
     const result = indexProductsStep(products)

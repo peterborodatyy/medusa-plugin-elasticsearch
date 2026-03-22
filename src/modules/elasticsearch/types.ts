@@ -1,8 +1,8 @@
-import { ClientOptions } from "@elastic/elasticsearch"
+import { ClientOptions } from '@elastic/elasticsearch'
 import {
   IndicesIndexSettings,
   MappingTypeMapping,
-} from "@elastic/elasticsearch/lib/api/types"
+} from '@elastic/elasticsearch/lib/api/types'
 
 export type SearchOptions = {
   paginationOptions?: {

@@ -1,10 +1,6 @@
-import { Client, ClientOptions } from "@elastic/elasticsearch"
-import {
-  ElasticsearchPluginOptions,
-  IndexConfig,
-  SearchOptions,
-} from "./types"
-import { transformProduct, transformCategory } from "../../utils/transformer"
+import { Client, ClientOptions } from '@elastic/elasticsearch'
+import { ElasticsearchPluginOptions, IndexConfig, SearchOptions } from './types'
+import { transformProduct, transformCategory } from '../../utils/transformer'
 
 type InjectedDependencies = Record<string, unknown>
 
@@ -28,10 +24,7 @@ export default class ElasticsearchModuleService {
     return this.client_.indices.get({ index: indexName })
   }
 
-  async indexData(
-    documents: Record<string, unknown>[],
-    type: string
-  ) {
+  async indexData(documents: Record<string, unknown>[], type: string) {
     const indexName = this.getIndexName(type)
     const transformed = this.getTransformedDocuments(type, documents)
 
@@ -154,11 +147,11 @@ export default class ElasticsearchModuleService {
       return documents.map(customTransformer)
     }
 
-    if (type === "products") {
+    if (type === 'products') {
       return documents.map(transformProduct)
     }
 
-    if (type === "categories") {
+    if (type === 'categories') {
       return documents.map(transformCategory)
     }
 

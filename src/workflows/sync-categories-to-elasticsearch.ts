@@ -3,33 +3,33 @@ import {
   createWorkflow,
   StepResponse,
   WorkflowResponse,
-} from "@medusajs/framework/workflows-sdk"
-import { ELASTICSEARCH_MODULE } from "../modules/elasticsearch"
+} from '@medusajs/framework/workflows-sdk'
+import { ELASTICSEARCH_MODULE } from '../modules/elasticsearch'
 
 type SyncCategoriesInput = {
   ids: string[]
 }
 
 const fetchCategoriesStep = createStep(
-  "fetch-categories-for-es",
+  'fetch-categories-for-es',
   async ({ ids }: SyncCategoriesInput, { container }) => {
-    const query = container.resolve("query")
+    const query = container.resolve('query')
 
     const { data: categories } = await query.graph({
-      entity: "product_category",
+      entity: 'product_category',
       fields: [
-        "id",
-        "name",
-        "handle",
-        "description",
-        "is_active",
-        "is_internal",
-        "rank",
-        "parent_category_id",
-        "parent_category.name",
-        "parent_category.handle",
-        "category_children.id",
-        "metadata",
+        'id',
+        'name',
+        'handle',
+        'description',
+        'is_active',
+        'is_internal',
+        'rank',
+        'parent_category_id',
+        'parent_category.name',
+        'parent_category.handle',
+        'category_children.id',
+        'metadata',
       ],
       filters: {
         id: ids,
@@ -41,7 +41,7 @@ const fetchCategoriesStep = createStep(
 )
 
 const indexCategoriesStep = createStep(
-  "index-categories-in-es",
+  'index-categories-in-es',
   async (categories: Record<string, unknown>[], { container }) => {
     const elasticsearchService = container.resolve(ELASTICSEARCH_MODULE)
 
@@ -53,11 +53,11 @@ const indexCategoriesStep = createStep(
       .map((c) => c.id as string)
 
     if (activeCategories.length) {
-      await elasticsearchService.indexData(activeCategories, "categories")
+      await elasticsearchService.indexData(activeCategories, 'categories')
     }
 
     if (inactiveIds.length) {
-      await elasticsearchService.deleteFromIndex(inactiveIds, "categories")
+      await elasticsearchService.deleteFromIndex(inactiveIds, 'categories')
     }
 
     return new StepResponse({
@@ -76,14 +76,14 @@ const indexCategoriesStep = createStep(
     if (result.indexedIds?.length) {
       await elasticsearchService.deleteFromIndex(
         result.indexedIds,
-        "categories"
+        'categories'
       )
     }
   }
 )
 
 export const syncCategoriesToElasticsearchWorkflow = createWorkflow(
-  "sync-categories-to-elasticsearch",
+  'sync-categories-to-elasticsearch',
   (input: SyncCategoriesInput) => {
     const categories = fetchCategoriesStep(input)
     const result = indexCategoriesStep(categories)

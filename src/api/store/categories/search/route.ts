@@ -1,6 +1,6 @@
-import type { MedusaRequest, MedusaResponse } from "@medusajs/framework/http"
-import { ELASTICSEARCH_MODULE } from "../../../../modules/elasticsearch"
-import type ElasticsearchModuleService from "../../../../modules/elasticsearch/service"
+import type { MedusaRequest, MedusaResponse } from '@medusajs/framework/http'
+import { ELASTICSEARCH_MODULE } from '../../../../modules/elasticsearch'
+import type ElasticsearchModuleService from '../../../../modules/elasticsearch/service'
 
 type SearchBody = {
   q: string
@@ -18,7 +18,7 @@ export async function POST(
 
   const { q, offset, limit, filter } = req.body
 
-  const results = await elasticsearchService.search(q, "categories", {
+  const results = await elasticsearchService.search(q, 'categories', {
     paginationOptions: {
       offset: offset ?? 0,
       limit: limit ?? 20,

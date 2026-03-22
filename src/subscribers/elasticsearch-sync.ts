@@ -1,29 +1,29 @@
-import type { SubscriberArgs, SubscriberConfig } from "@medusajs/framework"
+import type { SubscriberArgs, SubscriberConfig } from '@medusajs/framework'
 import {
   syncProductsToElasticsearchWorkflow,
   deleteProductsFromElasticsearchWorkflow,
   syncCategoriesToElasticsearchWorkflow,
   deleteCategoriesFromElasticsearchWorkflow,
-} from "../workflows"
+} from '../workflows'
 
 const BATCH_SIZE = 50
 
 export default async function handleElasticsearchSync({
   container,
 }: SubscriberArgs<Record<string, unknown>>) {
-  const query = container.resolve("query")
-  const logger = container.resolve("logger")
+  const query = container.resolve('query')
+  const logger = container.resolve('logger')
 
   // Sync products
-  logger.info("Elasticsearch: starting full product sync")
+  logger.info('Elasticsearch: starting full product sync')
 
   let offset = 0
   let hasMore = true
 
   while (hasMore) {
     const { data: products } = await query.graph({
-      entity: "product",
-      fields: ["id", "status"],
+      entity: 'product',
+      fields: ['id', 'status'],
       pagination: {
         skip: offset,
         take: BATCH_SIZE,
@@ -35,11 +35,11 @@ export default async function handleElasticsearchSync({
     }
 
     const publishedIds = products
-      .filter((p: any) => p.status === "published")
+      .filter((p: any) => p.status === 'published')
       .map((p: any) => p.id as string)
 
     const unpublishedIds = products
-      .filter((p: any) => p.status !== "published")
+      .filter((p: any) => p.status !== 'published')
       .map((p: any) => p.id as string)
 
     if (publishedIds.length) {
@@ -58,18 +58,18 @@ export default async function handleElasticsearchSync({
     hasMore = products.length === BATCH_SIZE
   }
 
-  logger.info("Elasticsearch: product sync completed")
+  logger.info('Elasticsearch: product sync completed')
 
   // Sync categories
-  logger.info("Elasticsearch: starting full category sync")
+  logger.info('Elasticsearch: starting full category sync')
 
   offset = 0
   hasMore = true
 
   while (hasMore) {
     const { data: categories } = await query.graph({
-      entity: "product_category",
-      fields: ["id", "is_active", "is_internal"],
+      entity: 'product_category',
+      fields: ['id', 'is_active', 'is_internal'],
       pagination: {
         skip: offset,
         take: BATCH_SIZE,
@@ -81,15 +81,11 @@ export default async function handleElasticsearchSync({
     }
 
     const activeIds = categories
-      .filter(
-        (c: any) => c.is_active === true && c.is_internal !== true
-      )
+      .filter((c: any) => c.is_active === true && c.is_internal !== true)
       .map((c: any) => c.id as string)
 
     const inactiveIds = categories
-      .filter(
-        (c: any) => c.is_active !== true || c.is_internal === true
-      )
+      .filter((c: any) => c.is_active !== true || c.is_internal === true)
       .map((c: any) => c.id as string)
 
     if (activeIds.length) {
@@ -108,9 +104,9 @@ export default async function handleElasticsearchSync({
     hasMore = categories.length === BATCH_SIZE
   }
 
-  logger.info("Elasticsearch: full sync completed")
+  logger.info('Elasticsearch: full sync completed')
 }
 
 export const config: SubscriberConfig = {
-  event: "elasticsearch.sync",
+  event: 'elasticsearch.sync',
 }

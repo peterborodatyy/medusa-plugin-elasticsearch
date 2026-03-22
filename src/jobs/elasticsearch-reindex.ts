@@ -1,5 +1,5 @@
-import { MedusaContainer } from "@medusajs/framework/types"
-import { Modules } from "@medusajs/framework/utils"
+import { MedusaContainer } from '@medusajs/framework/types'
+import { Modules } from '@medusajs/framework/utils'
 
 export default async function elasticsearchReindexJob(
   container: MedusaContainer
@@ -7,12 +7,12 @@ export default async function elasticsearchReindexJob(
   const eventModuleService = container.resolve(Modules.EVENT_BUS)
 
   await eventModuleService.emit({
-    name: "elasticsearch.sync",
+    name: 'elasticsearch.sync',
     data: {},
   })
 }
 
 export const config = {
-  name: "elasticsearch-daily-reindex",
-  schedule: "0 0 * * *", // daily at midnight
+  name: 'elasticsearch-daily-reindex',
+  schedule: '0 0 * * *', // daily at midnight
 }
