@@ -6,10 +6,12 @@
 
 <p>
 	<a href="https://www.npmjs.com/package/medusa-plugin-elasticsearch"><img alt="NPM Version" src="https://img.shields.io/npm/v/medusa-plugin-elasticsearch.svg" height="20"/></a>
+	<a href="https://www.npmjs.com/package/medusa-plugin-elasticsearch"><img alt="NPM Downloads" src="https://img.shields.io/npm/dm/medusa-plugin-elasticsearch.svg" height="20"/></a>
+	<a href="https://github.com/peterborodatyy/medusa-plugin-elasticsearch"><img alt="GitHub Stars" src="https://img.shields.io/github/stars/peterborodatyy/medusa-plugin-elasticsearch?style=flat" height="20"/></a>
+	<a href="https://github.com/peterborodatyy/medusa-plugin-elasticsearch/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/github/license/peterborodatyy/medusa-plugin-elasticsearch" height="20"/></a>
 	<a href="https://github.com/peterborodatyy/medusa-plugin-elasticsearch/graphs/contributors"><img alt="Contributors" src="https://img.shields.io/github/contributors/peterborodatyy/medusa-plugin-elasticsearch.svg" height="20"/></a>
-	<a href="https://github.com/peterborodatyy/medusa-plugin-elasticsearch/commits/main"><img alt="Activity" src="https://img.shields.io/github/commit-activity/m/peterborodatyy/medusa-plugin-elasticsearch?style=flat" height="20"/></a>
 	<a href="https://github.com/peterborodatyy/medusa-plugin-elasticsearch/issues"><img alt="Issues" src="https://img.shields.io/github/issues/peterborodatyy/medusa-plugin-elasticsearch?style=flat" height="20"/></a>
-	<a href="https://twitter.com/intent/tweet?text=Checkout%20the%20Medusa.js%20Elasticsearch%20plugin%20for%20v2&url=https://github.com/peterborodatyy/medusa-plugin-elasticsearch&hashtags=medusa,elastic,elasticsearch"><img alt="Twitter" src="https://badgen.net/badge/icon/twitter?icon=twitter&label=Share%20it%20on" height="20"/></a>
+	<a href="https://x.com/intent/tweet?text=Checkout%20the%20Medusa.js%20Elasticsearch%20plugin%20for%20v2&url=https://github.com/peterborodatyy/medusa-plugin-elasticsearch&hashtags=medusa,elastic,elasticsearch"><img alt="Share on X" src="https://img.shields.io/badge/share-on%20X-black?logo=x&logoColor=white" height="20"/></a>
 </p>
 
 Elasticsearch search plugin for **Medusa v2**. Provides automatic product and category indexing, full-text search, and admin sync capabilities powered by Elasticsearch.
