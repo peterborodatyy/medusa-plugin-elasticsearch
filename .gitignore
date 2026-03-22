@@ -1,5 +1,7 @@
-dist
+.medusa
 node_modules
 .DS_store
-yarn.lock
+.yarn/cache
+.yarn/install-state.gz
 yarn-error.log
+package-lock.json
