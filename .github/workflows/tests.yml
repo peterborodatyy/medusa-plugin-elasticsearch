@@ -1,4 +1,4 @@
-name: CI
+name: Tests
 
 on:
   pull_request:
@@ -17,16 +17,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
+          cache: yarn
 
       - name: Install dependencies
-        run: npm ci
+        run: yarn install --frozen-lockfile
 
       - name: Check formatting
-        run: npx prettier --check "src/**/*.ts" "*.{json,mjs}"
+        run: yarn format:check
 
       - name: Run ESLint
-        run: npx eslint src/
+        run: yarn lint
 
   build:
     name: Build
@@ -39,13 +39,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
+          cache: yarn
 
       - name: Install dependencies
-        run: npm ci
+        run: yarn install --frozen-lockfile
 
       - name: Build plugin
-        run: npx medusa plugin:build
+        run: yarn build
 
   test:
     name: Integration Tests
@@ -74,10 +74,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
+          cache: yarn
 
       - name: Install dependencies
-        run: npm ci
+        run: yarn install --frozen-lockfile
 
       - name: Wait for Elasticsearch
         run: |
@@ -88,6 +88,6 @@ jobs:
           echo "Elasticsearch is ready"
 
       - name: Run integration tests
-        run: npx jest --testPathPattern="__tests__" --forceExit
+        run: yarn test:integration
         env:
           ELASTIC_NODE: http://localhost:9200

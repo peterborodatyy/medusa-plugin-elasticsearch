@@ -1,5 +1,5 @@
 .medusa
 node_modules
 .DS_store
-yarn.lock
 yarn-error.log
+package-lock.json
