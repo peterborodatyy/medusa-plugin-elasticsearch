@@ -3,4 +3,4 @@ export type {
   IndexConfig,
   SearchOptions,
   ElasticIndexSettings,
-} from '../modules/elasticsearch/types'
+} from '../modules/elasticsearch/types.js'

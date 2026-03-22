@@ -4,7 +4,8 @@ import {
   StepResponse,
   WorkflowResponse,
 } from '@medusajs/framework/workflows-sdk'
-import { ELASTICSEARCH_MODULE } from '../modules/elasticsearch'
+import { ELASTICSEARCH_MODULE } from '../modules/elasticsearch/index.js'
+import type ElasticsearchModuleService from '../modules/elasticsearch/service.js'
 
 type DeleteCategoriesInput = {
   ids: string[]
@@ -13,7 +14,9 @@ type DeleteCategoriesInput = {
 const deleteCategoriesFromIndexStep = createStep(
   'delete-categories-from-es',
   async ({ ids }: DeleteCategoriesInput, { container }) => {
-    const elasticsearchService = container.resolve(ELASTICSEARCH_MODULE)
+    const elasticsearchService = container.resolve(
+      ELASTICSEARCH_MODULE
+    ) as ElasticsearchModuleService
     await elasticsearchService.deleteFromIndex(ids, 'categories')
 
     return new StepResponse(ids)

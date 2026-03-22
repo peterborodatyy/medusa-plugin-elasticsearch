@@ -1,5 +1,5 @@
 import { Module } from '@medusajs/framework/utils'
-import ElasticsearchModuleService from './service'
+import ElasticsearchModuleService from './service.js'
 
 export const ELASTICSEARCH_MODULE = 'elasticsearch'
 

@@ -4,7 +4,7 @@ import {
   deleteProductsFromElasticsearchWorkflow,
   syncCategoriesToElasticsearchWorkflow,
   deleteCategoriesFromElasticsearchWorkflow,
-} from '../workflows'
+} from '../workflows/index.js'
 
 const BATCH_SIZE = 50
 

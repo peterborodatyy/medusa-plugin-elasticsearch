@@ -6,8 +6,8 @@
     "rootDir": "./src",
     "esModuleInterop": true,
     "declaration": true,
-    "module": "commonjs",
-    "moduleResolution": "bundler",
+    "module": "node16",
+    "moduleResolution": "node16",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
@@ -21,6 +21,7 @@
     "node_modules",
     "src/**/__tests__",
     "src/**/__mocks__",
-    "src/**/__fixtures__"
+    "src/**/__fixtures__",
+    "src/admin"
   ]
 }

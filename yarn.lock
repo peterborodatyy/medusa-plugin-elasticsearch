@@ -3184,7 +3184,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@medusajs/js-sdk@npm:2.13.4":
+"@medusajs/js-sdk@npm:2.13.4, @medusajs/js-sdk@npm:^2.5.0":
   version: 2.13.4
   resolution: "@medusajs/js-sdk@npm:2.13.4"
   dependencies:
@@ -13815,6 +13815,7 @@ __metadata:
     "@medusajs/admin-sdk": ^2.5.0
     "@medusajs/cli": ^2.5.0
     "@medusajs/framework": ^2.5.0
+    "@medusajs/js-sdk": ^2.5.0
     "@medusajs/medusa": ^2.5.0
     "@medusajs/test-utils": ^2.5.0
     "@swc/core": ^1.5.7

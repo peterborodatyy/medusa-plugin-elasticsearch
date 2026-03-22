@@ -4,7 +4,8 @@ import {
   StepResponse,
   WorkflowResponse,
 } from '@medusajs/framework/workflows-sdk'
-import { ELASTICSEARCH_MODULE } from '../modules/elasticsearch'
+import { ELASTICSEARCH_MODULE } from '../modules/elasticsearch/index.js'
+import type ElasticsearchModuleService from '../modules/elasticsearch/service.js'
 
 type SyncProductsInput = {
   ids: string[]
@@ -54,7 +55,9 @@ const fetchProductsStep = createStep(
 const indexProductsStep = createStep(
   'index-products-in-es',
   async (products: Record<string, unknown>[], { container }) => {
-    const elasticsearchService = container.resolve(ELASTICSEARCH_MODULE)
+    const elasticsearchService = container.resolve(
+      ELASTICSEARCH_MODULE
+    ) as ElasticsearchModuleService
 
     const publishedProducts = products.filter((p) => p.status === 'published')
     const unpublishedIds = products
@@ -80,7 +83,9 @@ const indexProductsStep = createStep(
   ) => {
     if (!result) return
 
-    const elasticsearchService = container.resolve(ELASTICSEARCH_MODULE)
+    const elasticsearchService = container.resolve(
+      ELASTICSEARCH_MODULE
+    ) as ElasticsearchModuleService
 
     if (result.indexedIds?.length) {
       await elasticsearchService.deleteFromIndex(result.indexedIds, 'products')

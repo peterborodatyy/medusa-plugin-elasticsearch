@@ -1,5 +1,5 @@
 import type { SubscriberArgs, SubscriberConfig } from '@medusajs/framework'
-import { syncProductsToElasticsearchWorkflow } from '../workflows'
+import { syncProductsToElasticsearchWorkflow } from '../workflows/index.js'
 
 export default async function handleProductUpsert({
   event: { data },

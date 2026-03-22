@@ -1,5 +1,5 @@
 import type { SubscriberArgs, SubscriberConfig } from '@medusajs/framework'
-import { deleteCategoriesFromElasticsearchWorkflow } from '../workflows'
+import { deleteCategoriesFromElasticsearchWorkflow } from '../workflows/index.js'
 
 export default async function handleCategoryDeleted({
   event: { data },

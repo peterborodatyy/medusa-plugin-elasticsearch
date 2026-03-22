@@ -4,7 +4,8 @@ import {
   StepResponse,
   WorkflowResponse,
 } from '@medusajs/framework/workflows-sdk'
-import { ELASTICSEARCH_MODULE } from '../modules/elasticsearch'
+import { ELASTICSEARCH_MODULE } from '../modules/elasticsearch/index.js'
+import type ElasticsearchModuleService from '../modules/elasticsearch/service.js'
 
 type SyncCategoriesInput = {
   ids: string[]
@@ -43,7 +44,9 @@ const fetchCategoriesStep = createStep(
 const indexCategoriesStep = createStep(
   'index-categories-in-es',
   async (categories: Record<string, unknown>[], { container }) => {
-    const elasticsearchService = container.resolve(ELASTICSEARCH_MODULE)
+    const elasticsearchService = container.resolve(
+      ELASTICSEARCH_MODULE
+    ) as ElasticsearchModuleService
 
     const activeCategories = categories.filter(
       (c) => c.is_active === true && c.is_internal !== true
@@ -71,7 +74,9 @@ const indexCategoriesStep = createStep(
   ) => {
     if (!result) return
 
-    const elasticsearchService = container.resolve(ELASTICSEARCH_MODULE)
+    const elasticsearchService = container.resolve(
+      ELASTICSEARCH_MODULE
+    ) as ElasticsearchModuleService
 
     if (result.indexedIds?.length) {
       await elasticsearchService.deleteFromIndex(

@@ -23,6 +23,11 @@
     "./package.json": "./package.json",
     "./workflows": "./.medusa/server/src/workflows/index.js",
     "./.medusa/server/src/modules/*": "./.medusa/server/src/modules/*/index.js",
+    "./admin": {
+      "import": "./.medusa/server/src/admin/index.mjs",
+      "require": "./.medusa/server/src/admin/index.js",
+      "default": "./.medusa/server/src/admin/index.js"
+    },
     "./*": "./.medusa/server/src/*.js"
   },
   "files": [
@@ -51,6 +56,7 @@
     "@medusajs/admin-sdk": "^2.5.0",
     "@medusajs/cli": "^2.5.0",
     "@medusajs/framework": "^2.5.0",
+    "@medusajs/js-sdk": "^2.5.0",
     "@medusajs/medusa": "^2.5.0",
     "@medusajs/test-utils": "^2.5.0",
     "@swc/core": "^1.5.7",
