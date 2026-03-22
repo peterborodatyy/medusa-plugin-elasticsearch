@@ -43,7 +43,7 @@
     "test:integration": "jest --testPathPattern=__tests__ --forceExit"
   },
   "dependencies": {
-    "@elastic/elasticsearch": "^8.8.1"
+    "@elastic/elasticsearch": "^9.3.4"
   },
   "peerDependencies": {
     "@medusajs/admin-sdk": "^2.5.0",
@@ -86,7 +86,15 @@
     "rootDir": "src",
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|js)$",
     "transform": {
-      ".ts": ["ts-jest", { "tsconfig": { "module": "commonjs", "moduleResolution": "node" } }]
+      ".ts": [
+        "ts-jest",
+        {
+          "tsconfig": {
+            "module": "commonjs",
+            "moduleResolution": "node"
+          }
+        }
+      ]
     },
     "collectCoverageFrom": [
       "**/*.(t|j)s"
