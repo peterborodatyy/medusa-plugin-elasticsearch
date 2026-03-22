@@ -1,5 +1,9 @@
 import { Client, ClientOptions } from '@elastic/elasticsearch'
-import { ElasticsearchPluginOptions, IndexConfig, SearchOptions } from './types.js'
+import {
+  ElasticsearchPluginOptions,
+  IndexConfig,
+  SearchOptions,
+} from './types.js'
 import { transformProduct, transformCategory } from '../../utils/transformer.js'
 
 type InjectedDependencies = Record<string, unknown>

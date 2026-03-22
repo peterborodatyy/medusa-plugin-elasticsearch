@@ -80,10 +80,13 @@
       "/node_modules/",
       "<rootDir>/node_modules/"
     ],
+    "moduleNameMapper": {
+      "^(\\.\\.?/.*)\\.js$": "$1"
+    },
     "rootDir": "src",
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|js)$",
     "transform": {
-      ".ts": "ts-jest"
+      ".ts": ["ts-jest", { "tsconfig": { "module": "commonjs", "moduleResolution": "node" } }]
     },
     "collectCoverageFrom": [
       "**/*.(t|j)s"
