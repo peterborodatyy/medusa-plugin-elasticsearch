@@ -36,7 +36,7 @@ Elasticsearch search plugin for **Medusa v2**. Provides automatic product and ca
 ## Prerequisites
 
 - [Medusa v2](https://docs.medusajs.com/) application (v2.5.0+)
-- Elasticsearch instance or [Elastic Cloud](https://www.elastic.co/cloud)
+- Elasticsearch 9.x instance or [Elastic Cloud](https://www.elastic.co/cloud)
 
 ---
 
@@ -56,7 +56,7 @@ ELASTIC_USER_NAME=your_username
 ELASTIC_PASSWORD=your_password
 ```
 
-Or for a local Elasticsearch instance:
+Or for a local Elasticsearch 9.x instance:
 
 ```bash
 ELASTIC_NODE=http://localhost:9200
@@ -149,7 +149,7 @@ export default defineConfig({
 
 | Name | Description | Required |
 |------|-------------|----------|
-| `config` | Elasticsearch [client configuration](https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/client-configuration.html) (cloud, auth, node, etc.) | true |
+| `config` | Elasticsearch [client configuration](https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/client-connecting.html) (cloud, auth, node, etc.) | true |
 | `settings` | Index configurations keyed by index name (`products`, `categories`, or custom) | false |
 
 ### Index Options (per index in `settings`)
@@ -381,7 +381,7 @@ Planned features for future releases:
 
 - [Medusa v2 Documentation](https://docs.medusajs.com/)
 - [Medusa Plugin Guide](https://docs.medusajs.com/learn/fundamentals/plugins)
-- [Elasticsearch Node.js Client](https://github.com/elastic/elasticsearch-js)
+- [Elasticsearch Node.js Client v9](https://github.com/elastic/elasticsearch-js)
 - [Elasticsearch Reference](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html)
 
 ---
