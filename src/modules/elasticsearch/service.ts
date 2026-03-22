@@ -52,7 +52,7 @@ export default class ElasticsearchModuleService {
     return this.client_.search({
       index: indexName,
       q: query,
-      ...(filter ? { body: { query: filter } } : {}),
+      ...(filter ? { query: filter } : {}),
       ...(paginationOptions?.offset !== undefined
         ? { from: paginationOptions.offset }
         : {}),
@@ -92,10 +92,8 @@ export default class ElasticsearchModuleService {
 
     return this.client_.deleteByQuery({
       index: indexName,
-      body: {
-        query: {
-          match_all: {},
-        },
+      query: {
+        match_all: {},
       },
     })
   }
