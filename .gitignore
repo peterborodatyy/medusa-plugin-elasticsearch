@@ -1,4 +1,4 @@
-dist
+.medusa
 node_modules
 .DS_store
 yarn.lock
