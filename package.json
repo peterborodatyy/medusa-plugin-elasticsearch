@@ -1,5 +1,6 @@
 {
   "name": "medusa-plugin-elasticsearch",
+  "packageManager": "yarn@3.2.4",
   "version": "1.0.0",
   "description": "Elasticsearch search plugin for Medusa v2",
   "author": "Peter Borodatyy <peterborodatyy@gmail.com>",
