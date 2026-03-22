@@ -26,6 +26,7 @@ Elasticsearch search plugin for **Medusa v2**. Provides automatic product and ca
 - **Configurable Elasticsearch mappings**, analyzers, and tokenizers
 - **Search API** for products (`POST /store/products/search`) and categories (`POST /store/categories/search`)
 - **Admin API** at `POST /admin/elasticsearch/sync` with authentication
+- **Admin UI** settings page at `/settings/elasticsearch` with sync button and search testing
 - **Workflow compensation** -- automatic rollback on indexing failures
 - Built as a Medusa v2 module with workflows, subscribers, and scheduled jobs
 
@@ -33,7 +34,7 @@ Elasticsearch search plugin for **Medusa v2**. Provides automatic product and ca
 
 ## Prerequisites
 
-- [Medusa v2](https://docs.medusajs.com/) application (v2.0.0+)
+- [Medusa v2](https://docs.medusajs.com/) application (v2.5.0+)
 - Elasticsearch instance or [Elastic Cloud](https://www.elastic.co/cloud)
 
 ---
@@ -324,6 +325,10 @@ By default, products are indexed with a built-in transformer that flattens varia
 
 ```
 src/
+  admin/                        # Admin UI extension
+    lib/sdk.ts                  # Medusa JS SDK client
+    routes/settings/elasticsearch/
+      page.tsx                  # Settings page (sync + search testing)
   modules/elasticsearch/        # Elasticsearch module
     index.ts                    # Module definition (Module())
     service.ts                  # ES client service
@@ -361,7 +366,7 @@ src/
 Planned features for future releases:
 
 - [ ] **i18n / multi-language support** -- index per locale or field-suffix strategy for multilingual storefronts
-- [ ] **Admin UI extension** -- dashboard widget with sync button, index status, and document counts
+- [x] ~~**Admin UI extension** -- dashboard widget with sync button, index status, and document counts~~
 - [ ] **Configurable reindex schedule** -- allow custom cron expressions via module options
 - [ ] **Collection indexing** -- sync product collections alongside products and categories
 - [ ] **Aggregation helpers** -- pre-built faceted search support (price ranges, categories, tags)
